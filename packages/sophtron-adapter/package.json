@@ -1,0 +1,76 @@
+{
+  "name": "@ucp-npm/sophtron-adapter",
+  "version": "0.0.1-alpha",
+  "description": "Sophtron Adapter for the Universal Connect Widget",
+  "packageManager": "npm@10.8.2",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "nodemon",
+    "dev:e2e": "npm run dev",
+    "cypress:open": "cypress open --config-file cypress.config.ts",
+    "cypress:run": "cypress run --config-file cypress.config.ts",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run rename:esm",
+    "clean": "rm -rf dist && rm -f ucp-npm-*.tgz",
+    "pack": "npm run clean && npm run build && npm pack",
+    "test": "jest --no-coverage",
+    "test:watch": "npx -y cross-env DEBUG_PRINT_LIMIT=50000 jest --no-coverage --watch",
+    "rename:esm": "./scripts/rename-esm.sh",
+    "prepack": "npm run clean && npm run build",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "eslint . --fix --ext .js,.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Universal-Connect-Project/ucw-adapter-mx.git"
+  },
+  "keywords": [
+    "Sophtron",
+    "Fintech",
+    "Connect",
+    "Widget",
+    "UCW"
+  ],
+  "author": "UCP Team",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Universal-Connect-Project/ucw-adapter-sophtron/issues"
+  },
+  "homepage": "https://github.com/Universal-Connect-Project/ucw-adapter-sophtron#readme",
+  "dependencies": {
+    "@repo/utils": "*",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.6",
+    "axios": "^1.7.7"
+  },
+  "devDependencies": {
+    "@testing-library/cypress": "^10.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "cypress": "^13.15.0",
+    "eslint": "^8.57.1",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-cypress": "^2.15.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^27.6.3",
+    "msw": "^2.4.9",
+    "ts-jest": "^29.2.5",
+    "tslib": "^2.7.0"
+  }
+}
