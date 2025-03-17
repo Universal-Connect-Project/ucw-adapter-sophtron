@@ -28,6 +28,10 @@ const makeAConnection = async (jobTypes) => {
 describe("Sophtron aggregator", () => {
   generateDataTests({
     makeAConnection,
+    transactionsAccountSelector: (accounts) =>
+      accounts.find(
+        (account) => account?.depositAccount?.nickname === "Primary Checking",
+      ),
     shouldTestVcEndpoint: true,
     transactionsQueryString: "?start_time=2021/1/1&end_time=2099/12/31",
   });
